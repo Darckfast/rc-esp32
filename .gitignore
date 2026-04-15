@@ -1,0 +1,35 @@
+.pio
+.clang_complete
+.gcc-flags.json
+.ccls
+
+# PlatformIO local working directory (libraries, build artifacts, etc.)
+.pioenvs/
+.piolibdeps/
+
+# Build artifacts
+*.bin
+*.elf
+*.hex
+
+# ESP-IDF build directory
+build/
+
+# Local project configuration (auto-generated)
+sdkconfig
+sdkconfig.old
+
+# Component manager directories (dependencies downloaded on-the-fly)
+managed_components/
+dependencies.lock
+
+# Editor/IDE specific files
+.vscode/
+.clangd/
+.ccls-cache/
+
+# Temporary and log files
+*.log
+*.o
+*.d
+

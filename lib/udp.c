@@ -18,11 +18,11 @@
 static int sock;
 struct sockaddr_in dest_addr;
 
-void init_socket(char *host, uint32_t port) {
+void init_socket(char host, uint32_t port) {
   int addr_family = 0;
   int ip_protocol = 0;
 
-  dest_addr.sin_addr.s_addr = inet_addr(host);
+  dest_addr.sin_addr.s_addr = inet_addr(&host);
   dest_addr.sin_family = AF_INET;
   dest_addr.sin_port = htons(port);
   addr_family = AF_INET;
@@ -40,7 +40,7 @@ void init_socket(char *host, uint32_t port) {
   timeout.tv_usec = 61000;
   setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof timeout);
 
-  printf("Socket created, sending to %s:%d\n", host, port);
+  printf("Socket created, sending to %s:%d\n", &host, (int)port);
 }
 
 void send_udp(uint8_t *buf, int len) {

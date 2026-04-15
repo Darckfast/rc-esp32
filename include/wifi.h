@@ -5,7 +5,7 @@
 
 esp_err_t wifi_init(void);
 
-esp_err_t wifi_connect(char *wifi_ssid, char *wifi_password);
+esp_err_t wifi_connect(char wifi_ssid, char wifi_password);
 
 esp_err_t wifi_disconnect(void);
 

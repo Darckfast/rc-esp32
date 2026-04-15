@@ -10,13 +10,13 @@
 #define FREQUENCY_IN_HZ 60
 #define MAX_THUMB_VAL 512.0
 #define MAX_TRIGGER_VAL 1023.0
-#define XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE 123
-#define XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE 136
-#define XINPUT_GAMEPAD_TRIGGER_THRESHOLD 10
+#define GAMEPAD_LEFT_THUMB_DEADZONE 123
+#define GAMEPAD_RIGHT_THUMB_DEADZONE 136
+#define GAMEPAD_TRIGGER_THRESHOLD 10
 
 static inline void write_double(uint8_t *buf, float f) {
   uint32_t v;
-  memcpy(&v, &f, sizeof(v)); // avoid strict aliasing issues
+  memcpy(&v, &f, sizeof(v));
 
   buf[0] = (uint8_t)(v & 0xFF);
   buf[1] = (uint8_t)((v >> 8) & 0xFF);
@@ -46,7 +46,7 @@ void calculate_deadzone(uni_gamepad_t g) {
   float nLx = 0;
   float nLy = 0;
 
-  if (mag > XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE) {
+  if (mag > GAMEPAD_LEFT_THUMB_DEADZONE) {
     nLx = g.axis_x / MAX_THUMB_VAL;
     nLy = g.axis_y / MAX_THUMB_VAL;
   }
@@ -58,7 +58,7 @@ void calculate_deadzone(uni_gamepad_t g) {
 
   float nRx = 0;
   float nRy = 0;
-  if (mag > XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE) {
+  if (mag > GAMEPAD_RIGHT_THUMB_DEADZONE) {
     nRx = g.axis_rx / MAX_THUMB_VAL;
     nRy = g.axis_ry / MAX_THUMB_VAL;
   }
@@ -68,18 +68,18 @@ void calculate_deadzone(uni_gamepad_t g) {
 
   float thr = 0;
 
-  if (g.throttle > XINPUT_GAMEPAD_TRIGGER_THRESHOLD) {
-    thr = g.throttle - XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
-    thr = pow(thr / (MAX_TRIGGER_VAL - XINPUT_GAMEPAD_TRIGGER_THRESHOLD), 3);
+  if (g.throttle > GAMEPAD_TRIGGER_THRESHOLD) {
+    thr = g.throttle - GAMEPAD_TRIGGER_THRESHOLD;
+    thr = pow(thr / (MAX_TRIGGER_VAL - GAMEPAD_TRIGGER_THRESHOLD), 3);
   }
 
   ng->Tr = thr;
 
   float brk = 0;
 
-  if (g.brake > XINPUT_GAMEPAD_TRIGGER_THRESHOLD) {
-    brk = g.brake - XINPUT_GAMEPAD_TRIGGER_THRESHOLD;
-    brk = pow(brk / (MAX_TRIGGER_VAL - XINPUT_GAMEPAD_TRIGGER_THRESHOLD), 3);
+  if (g.brake > GAMEPAD_TRIGGER_THRESHOLD) {
+    brk = g.brake - GAMEPAD_TRIGGER_THRESHOLD;
+    brk = pow(brk / (MAX_TRIGGER_VAL - GAMEPAD_TRIGGER_THRESHOLD), 3);
   }
 
   ng->Tl = brk;

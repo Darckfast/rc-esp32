@@ -172,7 +172,7 @@ esp_err_t wifi_init(void) {
   return ESP_OK;
 }
 
-esp_err_t wifi_connect(char *ssid, char *password) {
+esp_err_t wifi_connect(char ssid, char password) {
   wifi_config_t config = {
       .sta =
           {
@@ -180,8 +180,8 @@ esp_err_t wifi_connect(char *ssid, char *password) {
           },
   };
 
-  strncpy((char *)config.sta.ssid, ssid, sizeof(config.sta.ssid));
-  strncpy((char *)config.sta.password, password, sizeof(config.sta.password));
+  strncpy((char *)config.sta.ssid, &ssid, sizeof(config.sta.ssid));
+  strncpy((char *)config.sta.password, &password, sizeof(config.sta.password));
 
   config.sta.ssid[sizeof(config.sta.ssid) - 1] = '\0';
   config.sta.password[sizeof(config.sta.password) - 1] = '\0';

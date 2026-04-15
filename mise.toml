@@ -1,0 +1,12 @@
+[tools]
+"pipx:platformio" = "6.1.19"
+python = "3.10"
+
+[settings]
+python.uv_venv_auto = true
+
+[tasks]
+build = "pio run"
+compiledb = "pio run -t compiledb"
+upload = "pio run -t upload"
+monitor = "pio run -t monitor"

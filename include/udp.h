@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-void init_socket(char *host, uint32_t port);
+void init_socket(char host, uint32_t port);
 void send_udp(uint8_t *buf, int len);
 
 #endif

@@ -8,12 +8,12 @@
 #include <stdlib.h>
 #include <uni.h>
 
-#include "../lib/controller.h"
-#include "../lib/led.h"
-#include "../lib/my_platform.h"
-#include "../lib/udp.h"
-#include "../lib/wifi.h"
-#include "secrets.h"
+#include "controller.h"
+#include "led.h"
+#include "main_configs.h"
+#include "my_platform.h"
+#include "udp.h"
+#include "wifi.h"
 
 // Sanity check
 #ifndef CONFIG_BLUEPAD32_PLATFORM_CUSTOM
@@ -27,7 +27,7 @@ int app_main(void) {
 
   wifi_init();
 
-  esp_err_t ret = wifi_connect(RC_SSID, RC_PASSWORD);
+  esp_err_t ret = wifi_connect(*RC_SSID, *RC_PASSWORD);
   if (ret != ESP_OK) {
     curr_state = ERROR;
     // need to add logic to wait for conn
@@ -36,7 +36,7 @@ int app_main(void) {
 
   curr_state = BT_INIT;
 
-  init_socket();
+  init_socket(*RC_HOST_IP_ADDR, RC_PORT);
 
   // Don't use BTstack buffered UART. It conflicts with the console.
 #ifdef CONFIG_ESP_CONSOLE_UART

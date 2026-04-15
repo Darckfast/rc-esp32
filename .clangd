@@ -1,0 +1,9 @@
+CompileFlags:
+  Add:
+    - -ferror-limit=0
+    - -isysroot=/home/v/.platformio/packages/toolchain-xtensa-esp32
+    - --target=xtensa
+  Remove:
+    - -m*
+    - -f* 
+  CompilationDatabase: .pio/build/esp32cam
